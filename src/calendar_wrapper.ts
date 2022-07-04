@@ -94,6 +94,7 @@ export default class GoogleWrapper {
 				Logger.critical(`Invalid calendars count. Expected: ${expectedCalendars} Got: ${this.calendarList.length}`);
 			}
 			Logger.info(`Calendars structure is ${chalk.green('valid')} with ${chalk.green(this.calendarList.length)} calendars`);
+			this.generateStructureFile();
 		}
 	}
 
@@ -156,5 +157,19 @@ export default class GoogleWrapper {
 			maxResults: 2500
 		});
 		return list.data.items!;
+	}
+
+	private generateStructureFile() {
+		const result: any = {};
+		for(const region of this.regions) {
+			result[region] = {};
+			for(const tier of ALL_TIERS) {
+				const calendar = this.getCalendarByRegion(region, tier);
+				if(!calendar) throw Error(`Cannot generate structure file, calendar is missing ${region} - ${tier}`);
+				result[region][tier] = calendar.id;
+			}
+		}
+		fs.writeFileSync('structure.json', JSON.stringify(result, null, 2));
+		Logger.info(`Saved structure to ${chalk.green('structure.json')}`);
 	}
 }

@@ -129,3 +129,4 @@ dist
 data
 keys/*
 !keys/.keep
+structure.json

@@ -16,7 +16,7 @@ export default class Utils {
 			result += `${hours}&nbsp;hour${hours > 1 ? 's' : ''}`;
 		}
 		if(hours > 0 && minutes > 0) {
-			result += '&nbsp;adn&nbsp;';
+			result += '&nbsp;and&nbsp;';
 		}
 		if(minutes > 0) {
 			result += `${minutes}&nbsp;minute${minutes > 1 ? 's' : ''}`;

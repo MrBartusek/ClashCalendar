@@ -45,7 +45,6 @@ class ClashCalendar {
 		Logger.info(
 			`${chalk.bold('Strucutre update job')} every 24 hours - ` +
 			`Next execution: ${chalk.green(structureJobNext)}`);
-		console.log(this.google.getCalendarByRegion('br', ClashTier.TWO));
 	}
 
 	async updateEvents() {
