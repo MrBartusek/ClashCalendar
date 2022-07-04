@@ -2,19 +2,23 @@ import * as calendar from '@googleapis/calendar';
 import Logger from './logger.js';
 import chalk from 'chalk';
 import * as fs from 'fs';
-import config from '../config/config.json';
-import { Region, round } from 'shieldbow';
+import { Region } from 'shieldbow';
+import { ALL_TIERS, ClashTier } from './riot_wrapper.js';
 
 const SERVICE_ACCOUNT_PATH = 'keys/service-account.json';
 
 export default class GoogleWrapper {
 	public client!: calendar.calendar_v3.Calendar;
+	private regions: Region[];
+	private calendarList: calendar.calendar_v3.Schema$CalendarListEntry[];
 
-	constructor() {
+	constructor(regions: Region[]) {
+		this.regions = regions;
+		this.calendarList = [];
 		this.shareCalendar = this.shareCalendar.bind(this);
 	}
 
-	async initialize(): Promise<GoogleWrapper> {
+	public async initialize(): Promise<GoogleWrapper> {
 		Logger.info('Initializing Google Client...');
 
 		// Start the connection
@@ -32,20 +36,20 @@ export default class GoogleWrapper {
 		});
 
 		// Finalize
-		const calendarCount = (await client.calendarList.list()).data.items?.length;
-		Logger.info(`Logged in to Google as: ${chalk.green(authClient.email)} with ${chalk.green(calendarCount)} calendars`);
 		this.client = client;
+		this.calendarList = await this.listCalendars();
+		Logger.info(`Logged in to Google as: ${chalk.green(authClient.email)} with ${chalk.green(this.calendarList.length)} calendars`);
 		return this;
 	}
 
-	async updateCalendarsStructure(): Promise<void> {
+	public async updateCalendarsStructure(): Promise<void> {
 		Logger.info('Checking calendars structure...');
 
+		// Initial structure check
 		const structure = this.getStructure();
-		const calendars = (await this.client.calendarList.list()).data.items!;
+		let calendars = await this.listCalendars();
 		const invalidCalenders = calendars.filter(c => !structure.includes(c.summary!));
 		let missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
-
 		if(invalidCalenders.length > 0 || missingCalendars.length > 0) {
 			Logger.warn(`There are ${invalidCalenders.length} invalid calendars and ${missingCalendars.length} calendars missing`);
 		}
@@ -76,18 +80,32 @@ export default class GoogleWrapper {
 			if(!successful) break;
 		}
 
+		// Finalize
+		calendars = await this.listCalendars();
+		this.calendarList = calendars;
 		missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
-
 		if(missingCalendars.length > 0) {
 			const structurePercentage = Math.round(((structure.length - missingCalendars.length) / structure.length) * 100);
 			Logger.warn(`Created partial calendars structure (${structurePercentage}%)`);
 		}
 		else {
-			Logger.info('Calendars structure is valid');
+			const expectedCalendars = this.regions.length * 5;
+			if(this.calendarList.length !== expectedCalendars) {
+				Logger.critical(`Invalid calendars count. Expected: ${expectedCalendars} Got: ${this.calendarList.length}`);
+			}
+			Logger.info(`Calendars structure is ${chalk.green('valid')} with ${chalk.green(this.calendarList.length)} calendars`);
 		}
 	}
 
-	async shareCalendar(calendar: calendar.calendar_v3.Schema$Calendar): Promise<calendar.calendar_v3.Schema$Calendar> {
+	private async listCalendars(): Promise<calendar.calendar_v3.Schema$CalendarListEntry[]> {
+		const list = (await this.client.calendarList.list({
+			maxResults: 250,
+			minAccessRole: 'owner'
+		}));
+		return list.data.items!;
+	}
+
+	private async shareCalendar(calendar: calendar.calendar_v3.Schema$Calendar): Promise<calendar.calendar_v3.Schema$Calendar> {
 		await this.client.acl.insert({
 			calendarId: calendar.id!,
 			requestBody: {
@@ -100,23 +118,43 @@ export default class GoogleWrapper {
 		return calendar;
 	}
 
-	getStructure(): string[] {
+	private getCalendarName(region: Region, tier: ClashTier) {
+		if(tier == ClashTier.UNIVERSAL) {
+			return `Clash - ${region.toUpperCase()}`;
+		}
+		else {
+			return `Clash - ${region.toUpperCase()} - Tier ${Number(tier)}`;
+		}
+	}
+
+	private getStructure(): string[] {
 		const structure: string[] = [];
-		for(const region of config.regions) {
-			for(const tier of [undefined, 1, 2, 3, 4]) {
-				structure.push(this.getCalendarName(region.name as Region, tier));
+		for(const region of this.regions) {
+			for(const tier of ALL_TIERS) {
+				structure.push(this.getCalendarName(region, tier));
 			}
 		}
 		return structure;
 	}
 
-	getCalendarName(region: Region, tier?: number) {
-		if(tier) {
-			return `Clash - ${region.toUpperCase()} - Tier ${tier}`;
-		}
-		else {
-			return `Clash - ${region.toUpperCase()}`;
-		}
+	public getCalendarByRegion(region: Region, tier: ClashTier): calendar.calendar_v3.Schema$Calendar | undefined {
+		const name = this.getCalendarName(region, tier);
+		const calendar = this.calendarList.find(c => c.summary == name);
+		if(!calendar) return undefined;
+		return calendar;
+	}
 
+	public async listEvents(calendar: calendar.calendar_v3.Schema$Calendar) {
+		const date = new Date();
+		date.setHours(date.getHours() + 24);
+
+		const list = await this.client.events.list({
+			calendarId: calendar.id!,
+			timeMin: date.toISOString(),
+			singleEvents: true,
+			orderBy: 'startTime',
+			maxResults: 2500
+		});
+		return list.data.items!;
 	}
 }
