@@ -7,6 +7,8 @@ export default class Utils {
 		}).join(' ');
 	}
 
+	// Convert number of seconds to frendly H hours M minutes
+	// This uses &nbsp; for spaces
 	public static formatDuration(input: number): string {
 		const hours   = Math.floor(input / 3600);
 		const minutes = Math.floor((input - (hours * 3600)) / 60);
@@ -24,14 +26,15 @@ export default class Utils {
 		return result;
 	}
 
+	// Format date to hh:mm:ss dd/mm/yyyy
 	public static formatDate(input: Date): string {
 		const date = new Date(input);
-		return `${
-			(date.getMonth()+1).toString().padStart(2, '0')}/${
-			date.getDate().toString().padStart(2, '0')}/${
-			date.getFullYear().toString().padStart(4, '0')} ${
-			date.getHours().toString().padStart(2, '0')}:${
-			date.getMinutes().toString().padStart(2, '0')}:${
-			date.getSeconds().toString().padStart(2, '0')}`;
+		const dd = date.getDate().toString().padStart(2, '0');
+		const min = (date.getMonth()+1).toString().padStart(2, '0');
+		const yyyy = date.getFullYear().toString().padStart(4, '0');
+		const hh = date.getHours().toString().padStart(2, '0');
+		const mo = date.getMinutes().toString().padStart(2, '0');
+		const ss = date.getSeconds().toString().padStart(2, '0');
+		return `${hh}:${min}:${ss} ${dd}/${mo}/${yyyy}`;
 	}
 }
