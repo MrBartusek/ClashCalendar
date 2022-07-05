@@ -1,3 +1,6 @@
+import chalk from 'chalk';
+import { ApiError } from 'shieldbow';
+
 export default class Utils {
 	// Convert string to tile
 	// some text => Some TEXT
@@ -36,5 +39,19 @@ export default class Utils {
 		const mo = date.getMinutes().toString().padStart(2, '0');
 		const ss = date.getSeconds().toString().padStart(2, '0');
 		return `${hh}:${min}:${ss} ${dd}/${mo}/${yyyy}`;
+	}
+
+	public static formatAPIError(error: ApiError): string {
+		if(!(error instanceof ApiError)) return error;
+		let response = error.response.data;
+		if(typeof response == 'object') {
+			response = JSON.stringify(response);
+		}
+		return [
+			`${chalk.bold('Request:')} ${error.request}`,
+			`${chalk.bold('URL:')} ${error.response.config.url}`,
+			`${chalk.bold('Response:')} HTTP ${error.response.status}: ${error.response.statusText}`,
+			response
+		].join('\r\n');
 	}
 }

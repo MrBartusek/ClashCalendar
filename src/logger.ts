@@ -20,7 +20,10 @@ export default class Logger {
 
 	private static log(severity: 'CRITICAL' | 'ERROR' | 'WARN' | 'INFO', message: string): void {
 		const color = this.getColor(severity);
-		console.log(color.bold(`[${severity}] `) + color(message));
+		// Properly display multline errors
+		for(const part of message.split(/\r?\n/)) {
+			console.log(color.bold(`[${severity}] `) + color(part));
+		}
 	}
 
 	private static getColor(severity: 'CRITICAL' | 'ERROR' | 'WARN' | 'INFO'): ChalkInstance {

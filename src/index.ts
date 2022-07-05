@@ -1,7 +1,7 @@
 import Logger from './logger.js';
 import chalk from 'chalk';
 import GoogleWrapper from './calendar_wrapper.js';
-import { Region, Tournament } from 'shieldbow';
+import { ApiError, Region, Tournament } from 'shieldbow';
 import RiotWrapper, { ALL_TIERS, ClashTier } from './riot_wrapper.js';
 import * as schedule from 'node-schedule';
 import Utils from './utils.js';
@@ -53,9 +53,9 @@ class ClashCalendar {
 		for(const region of REGIONS) {
 			await this.updateRegion(region)
 				.then((r) => results[region] = r)
-				.catch((e) => {
-					Logger.error(`Failed to update region: ${region.toUpperCase()}`);
-					console.log(e);
+				.catch((error: ApiError) => {
+					Logger.error(`Failed to update region: ${chalk.bold(region.toUpperCase())}. The rest of the regions updates will continue`);
+					Logger.error(Utils.formatAPIError(error));
 					results[region] = RegionUpdateResult.FAILED;
 				});
 		}
