@@ -13,8 +13,8 @@ enum RegionUpdateResult {
 	CALENDAR_MISSING
 }
 
-// Minut on which cornjobs will run,
-// if you are runnin own instance set it to somethign random
+// Minute on which cronjobs will run,
+// if you are running own instance set it to something random
 const JITTER = '24';
 
 class ClashCalendar {
@@ -43,8 +43,9 @@ class ClashCalendar {
 			`${chalk.bold('Events update job')} every 3 hours - ` +
 			`Next execution: ${chalk.green(eventsJobNext)}`);
 		Logger.info(
-			`${chalk.bold('Strucutre update job')} every 24 hours - ` +
+			`${chalk.bold('Structure update job')} every 24 hours - ` +
 			`Next execution: ${chalk.green(structureJobNext)}`);
+		Logger.separator();
 	}
 
 	async updateEvents() {
@@ -59,7 +60,7 @@ class ClashCalendar {
 					results[region] = RegionUpdateResult.FAILED;
 				});
 		}
-		Logger.info(chalk.gray('--------------------------------------'));
+		Logger.separator();
 		Logger.info('CLASH CALENDAR REGIONS UPDATE SUMMARY:');
 		for(const [region, result] of Object.entries(results!)) {
 			let color = chalk.gray;
@@ -74,7 +75,7 @@ class ClashCalendar {
 			}
 			Logger.info(`${color(`● ${chalk.bold(region.toLocaleUpperCase().padEnd(4))}`)} - ${RegionUpdateResult[result]}`);
 		}
-		Logger.info(chalk.gray('--------------------------------------'));
+		Logger.separator();
 	}
 
 	async updateRegion(region: Region): Promise<RegionUpdateResult> {
@@ -93,9 +94,9 @@ class ClashCalendar {
 			}
 
 			const events = await this.google.listEvents(calendar);
-			const clasheshNames = clashes.filter(c => c.schedule[0]).map(c => this.riot.formatClashName(c));
+			const clashesNames = clashes.filter(c => c.schedule[0]).map(c => this.riot.formatClashName(c));
 			const eventNames = events.map(e => e.summary);
-			const invalidEvents = events.filter(e => !clasheshNames.includes(e.summary || ''));
+			const invalidEvents = events.filter(e => !clashesNames.includes(e.summary || ''));
 			invalidEvents.filter(e => (+new Date() - +new Date(e.start!.dateTime!)) > 0); // Don't delete old events
 			const missingEvents = clashes.filter(c => !eventNames.includes(this.riot.formatClashName(c)));
 
@@ -140,7 +141,7 @@ class ClashCalendar {
 			<a href=\"http://dokurno.dev/ClashCalendar\">Website</a> | 
 			<a href=\"https://github.com/MrBartusek/ClashCalendar\">Github</a> | 
 			<a href=\"https://github.com/MrBartusek/ClashCalendar/issues\">Report Issue</a> | 
-			<a href=\"https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360000951548-Clash-FAQ\">Whatnbsp;isnbsp;Clash?</a>
+			<a href=\"https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360000951548-Clash-FAQ\">What&nbsp;is&nbsp;Clash?</a>
 		<u></u><u></u></html-blob>`;
 		return html
 			.replaceAll('\t','')

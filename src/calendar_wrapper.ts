@@ -51,7 +51,9 @@ export default class GoogleWrapper {
 		const invalidCalenders = calendars.filter(c => !structure.includes(c.summary!));
 		let missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
 		if(invalidCalenders.length > 0 || missingCalendars.length > 0) {
-			Logger.warn(`There are ${invalidCalenders.length} invalid calendars and ${missingCalendars.length} calendars missing`);
+			Logger.warn(
+				`There are ${chalk.bold(missingCalendars.length)} missing calendars ` +
+				`and ${chalk.bold(invalidCalenders.length)} calendars invalid`);
 		}
 
 		// Delete invalid calendars
@@ -69,7 +71,7 @@ export default class GoogleWrapper {
 					return true;
 				})
 				.catch((error: any) => {
-					if(missingCalendars.length < structure.length && error.response?.status == 403) {
+					if(error.response?.status == 403) {
 						Logger.warn('Cannot create a missing calendar: ' + error);
 						return false;
 					}
@@ -84,9 +86,15 @@ export default class GoogleWrapper {
 		calendars = await this.listCalendars();
 		this.calendarList = calendars;
 		missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
+		if(this.calendarList.length == 0) {
+			Logger.critical('Unanable to create any calendars. There is no structure to work with.');
+		}
 		if(missingCalendars.length > 0) {
 			const structurePercentage = Math.round(((structure.length - missingCalendars.length) / structure.length) * 100);
-			Logger.warn(`Created partial calendars structure (${structurePercentage}%)`);
+			Logger.warn(`Created partial calendars structure (${chalk.bold(structurePercentage + '%')})`);
+			Logger.warn('Due to Google API usage limit Clash Calendar wasn\'t able to generate full calendar structure');
+			Logger.warn('Update is now running only for a part of regions');
+			Logger.warn(`${chalk.bold('structure.json')} won\'t be generated at this time`);
 		}
 		else {
 			const expectedCalendars = this.regions.length * 5;
