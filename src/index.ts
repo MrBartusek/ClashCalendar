@@ -1,6 +1,6 @@
 import Logger from './logger.js';
 import chalk from 'chalk';
-import GoogleWrapper from './calendar_wrapper.js';
+import GoogleWrapper from './google_wrapper.js';
 import { ApiError, Region, Tournament } from 'shieldbow';
 import RiotWrapper, { ALL_TIERS, ClashTier } from './riot_wrapper.js';
 import * as schedule from 'node-schedule';
