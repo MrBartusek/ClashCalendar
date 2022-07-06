@@ -87,7 +87,7 @@ export default class GoogleWrapper {
 		this.calendarList = calendars;
 		missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
 		if(this.calendarList.length == 0) {
-			Logger.critical('Unanable to create any calendars. There is no structure to work with.');
+			Logger.critical('Unable to create any calendars. There is no structure to work with.');
 		}
 		if(missingCalendars.length > 0) {
 			const structurePercentage = Math.round(((structure.length - missingCalendars.length) / structure.length) * 100);
