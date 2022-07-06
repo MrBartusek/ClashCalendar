@@ -59,7 +59,7 @@ export default class RiotWrapper {
 
 	public getClashRegisterTime(clash: Shieldbow.Tournament, tier: ClashTier): Date {
 		const schedule = clash.schedule[0];
-		return this.substractSeconds(schedule.startTime, this.getClashLockWindow(clash, tier));
+		return this.subtractSeconds(schedule.startTime, this.getClashLockWindow(clash, tier));
 	}
 
 	public getClashLockWindow(clash: Shieldbow.Tournament, tier: ClashTier): number {
@@ -79,7 +79,7 @@ export default class RiotWrapper {
 		}
 	}
 
-	private substractSeconds(date: Date, seconds: number): Date {
+	private subtractSeconds(date: Date, seconds: number): Date {
 		const dateCopy = new Date(date);
 		dateCopy.setSeconds(date.getSeconds() - seconds);
 		return dateCopy;
