@@ -80,6 +80,7 @@ class ClashCalendar {
 
 	async updateRegion(region: Region): Promise<RegionUpdateResult> {
 		const clashes = await this.riot.client.clash.fetchAll({ region: region });
+		if(!clashes.every(c => c.schedule.length == 1)) throw Error('Invalid clash schedule length');
 		clashes.sort((a,b) => a.schedule[0].startTimestamp - b.schedule[0].startTimestamp);
 		clashes.filter(c => !c.schedule[0].cancelled);
 		let anyCalendarMissing = false;
