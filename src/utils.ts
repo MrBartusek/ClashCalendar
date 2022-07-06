@@ -10,7 +10,7 @@ export default class Utils {
 		}).join(' ');
 	}
 
-	// Convert number of seconds to frendly H hours M minutes
+	// Convert number of seconds to friendly H hours M minutes
 	// This uses &nbsp; for spaces
 	public static formatDuration(input: number): string {
 		const hours   = Math.floor(input / 3600);
