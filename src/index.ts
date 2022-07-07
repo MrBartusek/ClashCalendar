@@ -141,7 +141,7 @@ class ClashCalendar {
 			📅 Created by&nbsp;<b>ClashCalendar</b><br>
 			<a href=\"http://dokurno.dev/ClashCalendar\">Website</a> | 
 			<a href=\"https://github.com/MrBartusek/ClashCalendar\">Github</a> | 
-			<a href=\"https://github.com/MrBartusek/ClashCalendar/issues\">Report Issue</a> | 
+			<a href=\"https://github.com/MrBartusek/ClashCalendar/issues\">Report&nbsp;Issue</a> | 
 			<a href=\"https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360000951548-Clash-FAQ\">What&nbsp;is&nbsp;Clash?</a>
 		<u></u><u></u></html-blob>`;
 		return html
