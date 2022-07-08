@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import * as fs from 'fs';
 import { Region } from 'shieldbow';
 import { ALL_TIERS, ClashTier } from './riot_wrapper.js';
+import Utils from './utils.js';
 
 const SERVICE_ACCOUNT_PATH = 'keys/service-account.json';
 
@@ -97,6 +98,10 @@ export default class GoogleWrapper {
 		}
 
 		// Finalize
+		// Wait for the dust after strucutre updates to settle
+		if(missingCalendars.length > 0 || invalidCalenders.length > 0) {
+			await Utils.delay(5000);
+		}
 		this.calendarList = await this.listCalendars();
 		missingCalendars = structure.filter(s => !this.calendarList.map(c => c.summary).includes(s));
 		if(this.calendarList.length == 0) {

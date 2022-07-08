@@ -54,4 +54,8 @@ export default class Utils {
 			response
 		].join('\r\n');
 	}
+
+	public static async delay(ms: number) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
 }
