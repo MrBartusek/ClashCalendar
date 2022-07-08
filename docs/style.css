@@ -1,5 +1,5 @@
-.tooltip {
-    --bs-tooltip-max-width: 350px;
+.popover {
+    --bs-popover-max-width: 400px;
 }
 
 .fc-daygrid-dot-event {

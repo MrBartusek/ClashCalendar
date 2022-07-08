@@ -38,11 +38,23 @@ document.addEventListener('DOMContentLoaded', async function() {
 			info.jsEvent.preventDefault();
 		},
 		eventDidMount: function(info) {
-			const title = `
-                <b>${info.timeText}</b> ${info.event.title}<br>
-                <a href='${info.event.url}' target='_blank'>See in Google Calendar</a>`;
-			new bootstrap.Tooltip(info.el, {
-				title: title,
+			let day = info.event.start.toLocaleTimeString('en', {weekday: 'long', month: 'long', day: 'numeric'});
+			// For some reason this also generates hours minutes and seconds which is not needed
+			day  = day.split(', ');
+			day.pop();
+			day = day.join(', ');
+			const startTime = info.event.start.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false});
+			const endTime = info.event.end.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false});
+
+			new bootstrap.Popover(info.el, {
+				title: `
+					<div class='container'>
+						<div class='col'>
+							<div class='row d-flex align-items-stretch mb-1'>${info.event.title}</div>
+							<div class='row text-muted fw-normal' style='font-size: 0.85em'>${day} ${startTime} ⋅ ${endTime}</div>
+						</div>
+					</div>`,
+				content: info.event.extendedProps.description,
 				html: true,
 				sanitize: false,
 				placement: 'top',
@@ -90,3 +102,11 @@ function updateCalendarAndImport() {
 	$('#calendarICalInput').val(`https://calendar.google.com/calendar/ical/${id}/public/basic.ics`);
 	$('#calendarImportButton').attr('href', `https://calendar.google.com/calendar?cid=${id}`);
 }
+
+$('body').on('click', function (e) {
+	//did not click a popover toggle or popover
+	if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('.popover.in').length === 0) {
+		$('.fc-daygrid-event').popover('hide');
+	}
+});
