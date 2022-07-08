@@ -123,6 +123,13 @@ export default class GoogleWrapper {
 					type: 'default'
 				}
 			}
+		}, {
+			retry: true,
+			retryConfig: {
+				// Retry also 400s since sometimes it throws 404 for new calendars
+				statusCodesToRetry: [[100, 199], [400, 429], [500, 599]],
+				retryDelay: 5000
+			}
 		});
 		return calendar;
 	}
