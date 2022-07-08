@@ -130,3 +130,4 @@ data
 keys/*
 !keys/.keep
 structure.json
+!docs/structure.json
