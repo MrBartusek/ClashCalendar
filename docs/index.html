@@ -64,56 +64,87 @@
                 </div>
                 <div class="row gx-5">
                     <div class="col-lg-6 mb-5">
-                        <h4>Configure calendar</h4>
-                        <p class="fw-normal text-muted mb-3">
-                            Select a tier and region that you are typically playing to get accurate clash times.
-                        </p>
-                        <form>
+                        <div class="row-lg-6">
+                            <h4>Configure calendar</h4>
+                            <p class="fw-normal text-muted mb-3">
+                                Select a tier and region that you are typically playing to get accurate clash times.
+                            </p>
+                            <form class="mb-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="regionSelect">Region</label>
+                                    <select class="form-select" id="regionSelect">
+                                        <option value='eune' selected>Europe Nordic & East (EUNE)</option>
+                                        <option value="euw">Europe West (EUW)</option>
+                                        <option value="na">North America (NA)</option>
+                                        <option value="br">Brazil (BR)</option>
+                                        <option value="lan">Latin America North (LAN)</option>
+                                        <option value="las">Latin America South (LAS)</option>
+                                        <option value="kr">Republic of Korea (KR)</option>
+                                        <option value="ru">Russia (RU)</option>
+                                        <option value="tr">Turkey (TR)</option>
+                                        <option value="oce" disabled>Oceania (OCE) - Disabled due to Riot API issues</option>
+                                        <option value="jp" disabled>Japan (JP) - Disabled due to Riot API issues</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="tierSelect">Clash tier</label>
+                                    <select class="form-select" id="tierSelect">
+                                        <option value="0">Universal</option>
+                                        <option value="1">Tier I</option>
+                                        <option value="2">Tier II</option>
+                                        <option value="3">Tier III</option>
+                                        <option value="4" selected>Tier IV</option>
+                                    </select>
+                                    <div class="form-text">Select <i>universal</i> if you are playing in multiple tiers.</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row-lg-6">
+                            <h4>Import calendar</h4>
+                            <p class="fw-normal text-muted mb-3">
+                                If you are happy with this configuration you can now import this calendar to your Google Calendars list.
+                            </p>
                             <div class="mb-3">
-                              <label class="form-label" for="regionSelect">Region</label>
-                              <select class="form-select" id="regionSelect">
-                                <option value='eune' selected>Europe Nordic & East (EUNE)</option>
-                                <option value="euw">Europe West (EUW)</option>
-                                <option value="na">North America (NA)</option>
-                                <option value="br">Brazil (BR)</option>
-                                <option value="lan">Latin America North (LAN)</option>
-                                <option value="las">Latin America South (LAS)</option>
-                                <option value="kr">Republic of Korea (KR)</option>
-                                <option value="ru">Russia (RU)</option>
-                                <option value="tr">Turkey (TR)</option>
-                                <option value="oce" disabled>Oceania (OCE) - Disabled due to Riot API issues</option>
-                                <option value="jp" disabled>Japan (JP) - Disabled due to Riot API issues</option>
-                              </select>
+                                <a type="button" class="btn btn-dark" id="calendarImportButton" target="_blank" href="#!">
+                                    <img src="google_calendar.svg" alt="Google Calendar" height="24" class='me-1'>
+                                    <span>Add to Google Calendar</span>
+                                </a>
                             </div>
                             <div class="mb-3">
-                              <label class="form-label" for="tierSelect">Clash tier</label>
-                              <select class="form-select" id="tierSelect">
-                                <option value="0">Universal</option>
-                                <option value="1">Tier I</option>
-                                <option value="2">Tier II</option>
-                                <option value="3">Tier III</option>
-                                <option value="4" selected>Tier IV</option>
-                              </select>
-                              <div id="tierHelp" class="form-text">Select <i>universal</i> if you are playing in multiple tiers.</div>
+                                <label class="form-label" for="calendarIdInput">Calendar ID</label>
+                                <div class="input-group">
+                                    <input id='calendarIdInput' type="text" class="form-control" readonly>
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Copy</button>
+                                </div>
                             </div>
-                          </form>
+                            <div class="mb-3">
+                                <label class="form-label" for="calendarIdInput">Public address in iCal format</label>
+                                <div class="input-group">
+                                    <input id='calendarICalInput' type="text" class="form-control" readonly>
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Copy</button>
+                                </div>
+                                <div class="form-text">Use this address to access this calendar from other applications.</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-6 mb-5">
-                        <h4>
-                            Calendar preview
-                            <div
-                                class="spinner-border text-primary spinner-border-sm"
-                                role="status"
-                                style="font-size: var(--bs-body-font-size);"
-                                id="calendar-spinner"
-                            >
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </h4>
-                        <p class="fw-normal text-muted mb-3">
-                            This is a preview of the calendar that you are about to add to your account.
-                        </p>
-                        <div id='calendar'></div>
+                        <div class="row-lg-6">
+                            <h4>
+                                Calendar preview
+                                <div
+                                    class="spinner-border text-primary spinner-border-sm"
+                                    role="status"
+                                    style="font-size: var(--bs-body-font-size);"
+                                    id="calendar-spinner"
+                                >
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </h4>
+                            <p class="fw-normal text-muted mb-3">
+                                This is a preview of the calendar that you are about to add to your account.
+                            </p>
+                            <div id='calendar'></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,19 +156,22 @@
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Clash Calendar 2022</div></div>
                 <div class="col-auto">
-                    <a class="link-light small" href="#!">Privacy</a>
+                    <a class="link-light small" href="https://github.com/MrBartusek/ClashCalendar">Github</a>
                     <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Terms</a>
+                    <a class="link-light small" href="https://github.com/MrBartusek/ClashCalendar/issues">Report&nbsp;issue</a>
                     <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Contact</a>
+                    <a class="link-light small" href="https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360000951548-Clash-FAQ">What&nbsp;is&nbsp;Clash?</a>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-between flex-column flex-sm-row mt-2">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row mt-3">
                 <div class="col-auto">
-                    <span class="text-secondary">
+                    <div class="text-secondary mb-2">
                         Clash Calendar isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially
                         involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or
                         registered trademarks of Riot Games, Inc.
+                    </div>
+                    <div class="text-secondary">
+                        Google Calendar™ is a trademark of Google LLC.
                     </span>
                 </div>
             </div>

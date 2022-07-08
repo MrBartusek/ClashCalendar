@@ -3,15 +3,12 @@ let currentTier = 4;
 let calendar = undefined;
 let structure = [];
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
 	const calendarEl = document.getElementById('calendar');
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		initialView: 'dayGridMonth',
-		googleCalendarApiKey: 'AIzaSyD8BFDNZXvWv7K3vElw3d06iUtVEz8tqxU',
+		googleCalendarApiKey: '',
 		themeSystem: 'bootstrap5',
-		events: {
-			googleCalendarId: 'iljeqeir5g0h6cjot1mbvfom80@group.calendar.google.com'
-		},
 		eventTimeFormat: {
 			hour: 'numeric',
 			minute: '2-digit',
@@ -55,23 +52,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 	calendar.render();
-	fetch('structure.json')
-		.then(response => response.json())
-		.then(response => structure = response);
+	structure = await fetch('structure.json').then(response => response.json());
+	updateCalendarAndImport();
 });
 
 $('#regionSelect').change(function (e) {
 	currentRegion = $(this).find(':selected').val();
-	updateCalendar();
+	updateCalendarAndImport();
 });
 
 $('#tierSelect').change(function (e) {
 	currentTier = $(this).find(':selected').val();
-	updateCalendar();
+	updateCalendarAndImport();
 });
 
-function updateCalendar() {
+function updateCalendarAndImport() {
+	const id = structure[currentRegion][currentTier];
 	calendar.setOption('events', {
-		googleCalendarId: structure[currentRegion][currentTier]
+		googleCalendarId: id
 	});
+
+	$('#calendarIdInput').val(id);
+	$('#calendarICalInput').val(`https://calendar.google.com/calendar/ical/${id}/public/basic.ics`);
+	$('#calendarImportButton').attr('href', `https://calendar.google.com/calendar?cid=${id}`);
 }
