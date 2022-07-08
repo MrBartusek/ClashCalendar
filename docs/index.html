@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 
     <title>Clash Calendar</title>
@@ -143,6 +144,12 @@
                             <p class="fw-normal text-muted mb-3">
                                 This is a preview of the calendar that you are about to add to your account.
                             </p>
+                            <div class="alert alert-danger align-items-center d-none" role="alert" id="calendarUpdateError">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>
+                                  Failed to update calendar
+                                </div>
+                              </div>
                             <div id='calendar'></div>
                         </div>
                     </div>

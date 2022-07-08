@@ -3,12 +3,17 @@ let currentTier = 4;
 let calendar = undefined;
 let structure = [];
 
+// This is default API key for Google Calendar
+// If you are hosting own instance change it to your own
+const DEFAULT_API_KEY = 'AIzaSyDe3krfQ81EgchKN7vk56DxPopQQYFnJNU';
+
 document.addEventListener('DOMContentLoaded', async function() {
+	const apiKey = Cookies.get('GOOGLE_API_KEY') || DEFAULT_API_KEY;
 	const calendarEl = document.getElementById('calendar');
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		initialView: 'dayGridMonth',
 		//TODO: This is production-restricted key. Add ability to use development keys
-		googleCalendarApiKey: 'AIzaSyDe3krfQ81EgchKN7vk56DxPopQQYFnJNU',
+		googleCalendarApiKey: apiKey,
 		themeSystem: 'bootstrap5',
 		eventTimeFormat: {
 			hour: 'numeric',
@@ -50,6 +55,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 				start: new Date().setMonth(new Date().getMonth() - 1),
 				end: new Date().setMonth(new Date().getMonth() + 3)
 			};
+		},
+		eventSourceSuccess: function () {
+			$('#calendarUpdateError').removeClass('d-flex');
+			$('#calendarUpdateError').addClass('d-none');
+		},
+		eventSourceFailure: function() {
+			$('#calendarUpdateError').addClass('d-flex');
+			$('#calendarUpdateError').removeClass('d-none');
 		}
 	});
 	calendar.render();
