@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 	const calendarEl = document.getElementById('calendar');
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		initialView: 'dayGridMonth',
-		googleCalendarApiKey: '',
+		//TODO: This is production-restricted key. Add ability to use development keys
+		googleCalendarApiKey: 'AIzaSyDe3krfQ81EgchKN7vk56DxPopQQYFnJNU',
 		themeSystem: 'bootstrap5',
 		eventTimeFormat: {
 			hour: 'numeric',
