@@ -2,6 +2,7 @@ import Logger from './logger.js';
 import chalk from 'chalk';
 import * as Shieldbow from 'shieldbow';
 import Utils from './utils.js';
+import { Region } from 'shieldbow';
 
 export enum ClashTier {
 	UNIVERSAL = 0,
@@ -49,6 +50,21 @@ export default class RiotWrapper {
 		Logger.info(`Successfully initialized Shieldbow client on patch ${chalk.green(client.patch)}`);
 		this.client = client;
 		return this;
+	}
+
+	// Fetch clashes and filter out not important ones
+	public async fetchClashesFiltered(region: Region) {
+		// Fetch all clashes from region
+		let clashes = await this.client.clash.fetchAll({ region: region });
+		// Check if all have exactly one schedule
+		if(!clashes.every(c => c.schedule.length == 1)) throw Error('Invalid clash schedule length');
+		// Filter canceled ones
+		clashes = clashes.filter(c => !c.schedule[0].cancelled);
+		// Filter out any clash that already started
+		clashes = clashes.filter(e => (+new Date() - +e.schedule[0].startTime) < 0);
+		// Sort chronologically
+		clashes.sort((a,b) => a.schedule[0].startTimestamp - b.schedule[0].startTimestamp);
+		return clashes;
 	}
 
 	public formatClashName(clash: Shieldbow.Tournament): string {

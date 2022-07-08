@@ -175,7 +175,7 @@ export default class GoogleWrapper {
 
 	public async listEvents(calendar: calendar.calendar_v3.Schema$Calendar) {
 		const date = new Date();
-		date.setHours(date.getHours() + 24);
+		date.setHours(date.getHours() - 24);
 
 		const list = await this.client.events.list({
 			calendarId: calendar.id!,

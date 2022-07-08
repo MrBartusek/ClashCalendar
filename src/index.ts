@@ -55,9 +55,14 @@ class ClashCalendar {
 			await this.updateRegion(region)
 				.then((r) => results[region] = r)
 				.catch((error: ApiError) => {
-					Logger.error(`Failed to update region: ${chalk.bold(region.toUpperCase())}. The rest of the regions updates will continue`);
-					Logger.error(Utils.formatAPIError(error));
-					results[region] = RegionUpdateResult.FAILED;
+					if(error instanceof ApiError) {
+						Logger.error(`Failed to update region: ${chalk.bold(region.toUpperCase())}. The rest of the regions updates will continue`);
+						Logger.error(Utils.formatAPIError(error));
+						results[region] = RegionUpdateResult.FAILED;
+					}
+					else {
+						throw error;
+					}
 				});
 		}
 		Logger.separator();
@@ -79,10 +84,7 @@ class ClashCalendar {
 	}
 
 	async updateRegion(region: Region): Promise<RegionUpdateResult> {
-		const clashes = await this.riot.client.clash.fetchAll({ region: region });
-		if(!clashes.every(c => c.schedule.length == 1)) throw Error('Invalid clash schedule length');
-		clashes.sort((a,b) => a.schedule[0].startTimestamp - b.schedule[0].startTimestamp);
-		clashes.filter(c => !c.schedule[0].cancelled);
+		const clashes = await this.riot.fetchClashesFiltered(region);
 		let anyCalendarMissing = false;
 
 		for(const tier of ALL_TIERS) {
@@ -98,7 +100,8 @@ class ClashCalendar {
 			const clashesNames = clashes.filter(c => c.schedule[0]).map(c => this.riot.formatClashName(c));
 			const eventNames = events.map(e => e.summary);
 			const invalidEvents = events.filter(e => !clashesNames.includes(e.summary || ''));
-			invalidEvents.filter(e => (+new Date() - +new Date(e.start!.dateTime!)) > 0); // Don't delete old events
+			// Don't delete old events
+			invalidEvents.filter(e => (+new Date() - +new Date(e.start!.dateTime!)) > 0);
 			const missingEvents = clashes.filter(c => !eventNames.includes(this.riot.formatClashName(c)));
 
 			// Delete invalid events
