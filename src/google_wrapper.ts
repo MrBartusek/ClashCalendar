@@ -47,8 +47,22 @@ export default class GoogleWrapper {
 
 		// Initial structure check
 		const structure = this.getStructure();
-		let calendars = await this.listCalendars();
-		const invalidCalenders = calendars.filter(c => !structure.includes(c.summary!));
+		const calendars = await this.listCalendars();
+
+		// Find invalid calendars
+		const invalidCalenders = [];
+		const structureCopy = [...structure];
+		for(const calendar of calendars) {
+			// This loop finds calendars with invalid names OR duplicate calendars
+			const validName = structureCopy.includes(calendar.summary!);
+			const index = structureCopy.indexOf(calendar.summary!);
+			if (index > -1) {
+				structureCopy.splice(index, 1);
+			}
+			if(!validName) {
+				invalidCalenders.push(calendar);
+			}
+		}
 		let missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
 		if(invalidCalenders.length > 0 || missingCalendars.length > 0) {
 			Logger.warn(
@@ -83,9 +97,8 @@ export default class GoogleWrapper {
 		}
 
 		// Finalize
-		calendars = await this.listCalendars();
-		this.calendarList = calendars;
-		missingCalendars = structure.filter(s => !calendars.map(c => c.summary).includes(s));
+		this.calendarList = await this.listCalendars();
+		missingCalendars = structure.filter(s => !this.calendarList.map(c => c.summary).includes(s));
 		if(this.calendarList.length == 0) {
 			Logger.critical('Unable to create any calendars. There is no structure to work with.');
 		}
