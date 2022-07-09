@@ -99,9 +99,9 @@ class ClashCalendar {
 			const events = await this.google.listEvents(calendar);
 			const clashesNames = clashes.filter(c => c.schedule[0]).map(c => this.riot.formatClashName(c));
 			const eventNames = events.map(e => e.summary);
-			const invalidEvents = events.filter(e => !clashesNames.includes(e.summary || ''));
+			let invalidEvents = events.filter(e => !clashesNames.includes(e.summary || ''));
 			// Don't delete old events
-			invalidEvents.filter(e => (+new Date() - +new Date(e.start!.dateTime!)) > 0);
+			invalidEvents = invalidEvents.filter(e => (+new Date() - +new Date(e.start!.dateTime!)) < 0);
 			const missingEvents = clashes.filter(c => !eventNames.includes(this.riot.formatClashName(c)));
 
 			// Delete invalid events
