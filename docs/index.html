@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 
     <link rel="icon" type="image/x-icon" href="icon.ico?v=13">
@@ -123,7 +124,15 @@
                                 If you are happy with this configuration you can now import this calendar to your Google Calendar.
                             </p>
                             <div class="mb-3">
-                                <a type="button" class="btn btn-dark" id="calendarImportButton" target="_blank" href="#!">
+                                <a
+                                    type="button"
+                                    class="btn btn-dark"
+                                    id="calendarImportButton"
+                                    target="_blank"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="right"
+                                    title="Add this calendar to your Google Account"
+                                >
                                     <img src="google_calendar.svg" alt="Google Calendar" height="24" width="24" class='me-1'>
                                     <span>Add to Google Calendar</span>
                                 </a>
@@ -132,14 +141,18 @@
                                 <label class="form-label" for="calendarIdInput">Calendar ID</label>
                                 <div class="input-group">
                                     <input id='calendarIdInput' type="text" class="form-control" readonly>
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Copy</button>
+                                    <button class="btn btn-outline-secondary" type="button" data-clipboard-target="#calendarIdInput">
+                                        <i class="bi bi-clipboard-fill"></i>
+                                    </button>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="calendarIdInput">Public address in iCal format</label>
                                 <div class="input-group">
                                     <input id='calendarICalInput' type="text" class="form-control" readonly>
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Copy</button>
+                                    <button class="btn btn-outline-secondary" type="button" data-clipboard-target="#calendarICalInput">
+                                        <i class="bi bi-clipboard-fill"></i>
+                                    </button>
                                 </div>
                                 <div class="form-text">Use this address to access this calendar from other applications.</div>
                             </div>

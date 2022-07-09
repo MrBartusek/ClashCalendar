@@ -2,6 +2,7 @@ let currentRegion = 'eune';
 let currentTier = 4;
 let calendar = undefined;
 let structure = [];
+const clipboard = new ClipboardJS('.btn');
 
 // This is default API key for Google Calendar
 // If you are hosting own instance change it to your own
@@ -80,6 +81,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 	calendar.render();
 	structure = await fetch('structure.json').then(response => response.json());
 	updateCalendarAndImport();
+	new ClipboardJS('.btn');
+	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+	[...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 });
 
 $('#regionSelect').change(function (e) {
@@ -109,4 +113,21 @@ $('body').on('click', function (e) {
         && $(e.target).parents('.popover.in').length === 0) {
 		$('.fc-daygrid-event').popover('hide');
 	}
+});
+
+clipboard.on('success', function(e) {
+	const tooltip = new bootstrap.Tooltip(e.trigger, {
+		title: 'Copied!',
+		trigger: 'hover'
+	});
+	$(e.trigger).children().removeClass('bi-clipboard-fill');
+	$(e.trigger).children().addClass('bi-check-lg');
+	tooltip.show();
+	e.trigger.addEventListener('hidden.bs.tooltip', function(e) {
+		tooltip.dispose();
+		setTimeout(() => {
+			$(e.target).children().addClass('bi-clipboard-fill');
+			$(e.target).children().removeClass('bi-check-lg');
+		}, 2000);
+	});
 });
