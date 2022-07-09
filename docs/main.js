@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 			day  = day.split(', ');
 			day.pop();
 			day = day.join(', ');
-			const startTime = info.event.start.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false});
-			const endTime = info.event.end.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false});
+			const startTime = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'});
+			const endTime = info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'});
 
 			new bootstrap.Popover(info.el, {
 				title: `
