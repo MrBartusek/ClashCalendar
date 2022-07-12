@@ -11,19 +11,22 @@ const DEFAULT_API_KEY = 'AIzaSyDe3krfQ81EgchKN7vk56DxPopQQYFnJNU';
 document.addEventListener('DOMContentLoaded', async function() {
 	const apiKey = Cookies.get('GOOGLE_API_KEY') || DEFAULT_API_KEY;
 	const calendarEl = document.getElementById('calendar');
+	const use12hour = Intl.DateTimeFormat([],  { hour: 'numeric' }).resolvedOptions().hourCycle == 'h12';
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		initialView: 'dayGridMonth',
-		//TODO: This is production-restricted key. Add ability to use development keys
 		googleCalendarApiKey: apiKey,
 		themeSystem: 'bootstrap5',
 		eventTimeFormat: {
 			hour: 'numeric',
 			minute: '2-digit',
-			hour12: false
+			// Honestly this option should not be needed. This wired thing called Intl.DateTimeFormat
+			// should actually detect which hour cycle user is using, and it does that when rendering
+			// popovers in eventDidMount! It doesn't work here though, some wired behavior of full calendar.
+			hour12: use12hour
 		},
-		firstDay: 1,
+		firstDay: 1, // Set first day to Monday
 		height: 'auto',
-		nextDayThreshold: '23:59:59',
+		nextDayThreshold: '23:59:59', // Don't create multiple day events
 		loading: function(loading) {
 			if(loading) {
 				$('#calendar-spinner').show();
@@ -35,17 +38,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 			}
 
 		},
-		eventClick: function(info) {
-			info.jsEvent.preventDefault();
-		},
 		eventDidMount: function(info) {
 			let day = info.event.start.toLocaleTimeString('en', {weekday: 'long', month: 'long', day: 'numeric'});
-			// For some reason this also generates hours minutes and seconds which is not needed
-			day  = day.split(', ');
-			day.pop();
-			day = day.join(', ');
-			const startTime = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'});
-			const endTime = info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'});
+
+			// For some reason this sometimes generates minutes hours and seconds when it's not supposed to?
+			// So remove everything that's not needed
+			daySplit  = day.split(', ');
+			if(daySplit.length == 3) {
+				daySplit.pop();
+				day = daySplit.join(', ');
+			}
+
+			const startTime = info.event.start.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'});
+			const endTime = info.event.end.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'});
 
 			new bootstrap.Popover(info.el, {
 				title: `
@@ -62,6 +67,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 				trigger: 'click',
 				container: 'body'
 			});
+		},
+		eventClick: function(info) {
+			// Disable displaying event in google calendar upon clicking
+			info.jsEvent.preventDefault();
 		},
 		validRange: function() {
 			return {
