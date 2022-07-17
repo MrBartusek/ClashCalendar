@@ -76,11 +76,11 @@ You now have a running instance of Clash Calendar Updater. There are now couple 
 1. Fork the project and clone it to your local machine. Follow the [setup guide](#setup-local-environment).
 1. Before making any changes pull from the remote repository to update your main branch
    ```sh
-      git pull upstream master
+   git pull upstream master
    ```
 1. Create a branch on which you will be working.
    ```sh
-       git checkout -b update-button-color
+   git checkout -b update-button-color
    ```
 1. Commit your changes and push it to your fork of the repository.
 1. Make sure your changes are working locally. Run `npm run build` to check code style.
