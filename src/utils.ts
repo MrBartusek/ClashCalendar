@@ -33,10 +33,10 @@ export default class Utils {
 	public static formatDate(input: Date): string {
 		const date = new Date(input);
 		const dd = date.getDate().toString().padStart(2, '0');
-		const min = (date.getMonth()+1).toString().padStart(2, '0');
+		const min = date.getMinutes().toString().toString().padStart(2, '0');
 		const yyyy = date.getFullYear().toString().padStart(4, '0');
 		const hh = date.getHours().toString().padStart(2, '0');
-		const mo = date.getMinutes().toString().padStart(2, '0');
+		const mo = (date.getMonth()+1).toString().padStart(2, '0');
 		const ss = date.getSeconds().toString().padStart(2, '0');
 		return `${hh}:${min}:${ss} ${dd}/${mo}/${yyyy}`;
 	}
