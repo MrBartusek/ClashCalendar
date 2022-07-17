@@ -13,9 +13,9 @@ enum RegionUpdateResult {
 	CALENDAR_MISSING
 }
 
-// Minute on which cronjobs will run,
-// if you are running own instance set it to something random
-const JITTER = '24';
+// Keep 5 minute buffer between full hours since
+// there is most traffic there
+const JITTER = Utils.random(5, 55);
 
 class ClashCalendar {
 	private riot!: RiotWrapper;
