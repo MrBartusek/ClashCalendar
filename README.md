@@ -2,7 +2,7 @@
 
 ![build](https://img.shields.io/github/checks-status/MrBartusek/ClashCalendar/master) [![Total alerts](https://img.shields.io/lgtm/alerts/g/MrBartusek/ClashCalendar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/MrBartusek/ClashCalendar/alerts/)
 
-[Clash Calendar](https://dokurno.dev/ClashCalendar/) is easy to use website that integrates [League Of Legends](https://www.leagueoflegends.com/) clashes into [Google Calendar](https://calendar.google.com/calendar). You can select calendar for any region and any tier and it will be updated with past, current and upcoming clashes. No setup required! Just select a tier and region that you are typically playing and click *Add to Google Calendar*.
+[Clash Calendar](https://dokurno.dev/ClashCalendar/) is easy to use website that integrates [League Of Legends](https://www.leagueoflegends.com/) clashes into [Google Calendar](https://calendar.google.com/calendar). You can select calendar for any region and any tier. It will be updated with past, current and upcoming clashes. No setup required! Just select a tier and region that you are typically playing and click *Add to Google Calendar*.
 
 ## Website
 
