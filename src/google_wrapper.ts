@@ -105,9 +105,9 @@ export default class GoogleWrapper {
 		}
 
 		// Finalize
-		// Wait for the dust after structure updates to settle
 		if(missingCalendars.length > 0 || invalidCalenders.length > 0) {
-			await Utils.delay(5000);
+			// Wait for the dust after structure updates to settle
+			await Utils.delay(30 * 1000);
 		}
 		this.calendarList = await this.listCalendars();
 		missingCalendars = structure.filter(s => !this.calendarList.map(c => c.summary).includes(s));
