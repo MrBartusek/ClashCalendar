@@ -78,7 +78,14 @@ export default class GoogleWrapper {
 		}
 		// Create missing calendars
 		for await(const structureCalendarName of missingCalendars) {
-			const successful = await this.client.calendars.insert({ requestBody: { summary: structureCalendarName }})
+			const successful = await this.client.calendars.insert({requestBody: {
+				summary: structureCalendarName,
+				description: 'This automatic calendar is managed by 📅 Clash Calendar https://dokurno.dev/ClashCalendar/'
+			}})
+				.then(async (c) => {
+					await Utils.delay(5000);
+					return c;
+				})
 				.then(c => c.data)
 				.then(this.shareCalendar)
 				.then(c => {
@@ -98,7 +105,7 @@ export default class GoogleWrapper {
 		}
 
 		// Finalize
-		// Wait for the dust after strucutre updates to settle
+		// Wait for the dust after structure updates to settle
 		if(missingCalendars.length > 0 || invalidCalenders.length > 0) {
 			await Utils.delay(5000);
 		}
