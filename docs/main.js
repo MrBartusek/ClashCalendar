@@ -8,7 +8,14 @@ let clipboard = undefined;
 // If you are hosting own instance change it to your own
 const DEFAULT_API_KEY = 'AIzaSyDe3krfQ81EgchKN7vk56DxPopQQYFnJNU';
 
-document.onreadystatechange = async function() {
+if(document.readyState == 'complete') {
+	main();
+}
+else {
+	document.onreadystatechange = main;
+}
+
+async function main() {
 	if (document.readyState != 'complete') return;
 	const apiKey = Cookies.get('GOOGLE_API_KEY') || DEFAULT_API_KEY;
 	const calendarEl = document.getElementById('calendar');
@@ -113,7 +120,7 @@ document.onreadystatechange = async function() {
 			}, 2000);
 		});
 	});
-};
+}
 
 $('#regionSelect').change(function (e) {
 	currentRegion = $(this).find(':selected').val();
@@ -124,19 +131,6 @@ $('#tierSelect').change(function (e) {
 	currentTier = $(this).find(':selected').val();
 	updateCalendarAndImport();
 });
-
-function updateCalendarAndImport() {
-	const id = structure[currentRegion][currentTier];
-	calendar.setOption('events', {
-		googleCalendarId: id
-	});
-
-	$('#calendarIdInput').val(id);
-	$('#calendarICalInput').val(`https://calendar.google.com/calendar/ical/${id}/public/basic.ics`);
-	const calendarAddUrl = `https://calendar.google.com/calendar?cid=${id}`;
-	$('#calendarImportButton').attr('href', calendarAddUrl);
-	$('#mobileModalContinueLink').attr('href', calendarAddUrl);
-}
 
 $('body').on('click', function (e) {
 	//did not click a popover toggle or popover
@@ -153,6 +147,19 @@ $('#calendarImportButton').on('click', function(e) {
 		$('#mobileModal').modal('show');
 	}
 });
+
+function updateCalendarAndImport() {
+	const id = structure[currentRegion][currentTier];
+	calendar.setOption('events', {
+		googleCalendarId: id
+	});
+
+	$('#calendarIdInput').val(id);
+	$('#calendarICalInput').val(`https://calendar.google.com/calendar/ical/${id}/public/basic.ics`);
+	const calendarAddUrl = `https://calendar.google.com/calendar?cid=${id}`;
+	$('#calendarImportButton').attr('href', calendarAddUrl);
+	$('#mobileModalContinueLink').attr('href', calendarAddUrl);
+}
 
 function isMobile() {
 	let check = false;
