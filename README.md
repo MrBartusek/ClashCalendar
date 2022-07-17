@@ -12,8 +12,6 @@ Clash Calendar Frontend is hosted here: [dokurno.dev/ClashCalendar/](https://dok
 
 ## Updater
 
-![updater](https://i.imgur.com/oUm5ItO.png)
-
 Clash Calendar Updater is script that updates all of the calendars with clashes from [Riot API](https://developer.riotgames.com). It is running on [Node.js](https://nodejs.org/en/), [Typescript](https://www.typescriptlang.org), [@googleapis/calendar](https://www.npmjs.com/package/@googleapis/calendar) and [shieldbow](https://thedrone7.github.io/shieldbow/).
 
 
