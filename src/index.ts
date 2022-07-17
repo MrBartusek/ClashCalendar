@@ -141,7 +141,7 @@ class ClashCalendar {
 			${tier != ClashTier.UNIVERSAL ? 'The lock-in window for this tier ' : 'This clash'} 
 			lasts&nbsp;<b>${Utils.formatDuration(this.riot.getClashLockWindow(clash, tier))}</b>. 
 			Good&nbsp;Luck!<br><br>
-			📅 Created by&nbsp;<b>Clash&nbsp;Calendar</b><br>
+			📅 Created by&nbsp;<b>Clash&nbsp;Calendar</b> | <a href=\"https://github.com/MrBartusek/ClashCalendar\">Star the project</a><br>
 			<a href=\"http://dokurno.dev/ClashCalendar\">Website</a> | 
 			<a href=\"https://github.com/MrBartusek/ClashCalendar\">Github</a> | 
 			<a href=\"https://github.com/MrBartusek/ClashCalendar/issues\">Report&nbsp;Issue</a> | 
