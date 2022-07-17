@@ -1,6 +1,6 @@
 # ClashCalendar
 
-![build](https://img.shields.io/github/checks-status/MrBartusek/ClashCalendar/master) [![Total alerts](https://img.shields.io/lgtm/alerts/g/MrBartusek/ClashCalendar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/MrBartusek/ClashCalendar/alerts/)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fdokurno.dev%2FClashCalendar%2F)](https://dokurno.dev/ClashCalendar/) [![Total alerts](https://img.shields.io/lgtm/alerts/g/MrBartusek/ClashCalendar.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/MrBartusek/ClashCalendar/alerts/) [![pm2](https://img.shields.io/badge/supports-pm2-informational?logo=pm2)](https://pm2.keymetrics.io)
 
 [Clash Calendar](https://dokurno.dev/ClashCalendar/) is easy to use website that integrates [League Of Legends](https://www.leagueoflegends.com/) clashes into [Google Calendar](https://calendar.google.com/calendar). You can select calendar for any region and any tier. It will be updated with past, current and upcoming clashes. No setup required! Just select a tier and region that you are typically playing and click *Add to Google Calendar*.
 
