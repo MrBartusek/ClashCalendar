@@ -43,7 +43,7 @@
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5">
+        <header class="bg-dark py-xl-5">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center justify-content-center">
                     <div class="col-lg-8 col-xl-7 col-xxl-6">
@@ -71,7 +71,7 @@
         </header>
         <!-- Calendar generator -->
         <section class="py-5" id="generator">
-            <div class="container px-5 my-5">
+            <div class="container px-5 my-xl-5">
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
                         <div class="text-center">
@@ -216,5 +216,26 @@
             </div>
         </div>
     </footer>
+    <!-- Mobile Modal -->
+    <div class="modal fade" id="mobileModal" tabindex="-1" aria-labelledby="mobileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="mobileModalLabel">Mobile device detected</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                We detected that you are using a mobile device for accessing Clash Calendar. We just want to
+                let you know that Google restricts importing or creating new calendars on devices other than
+                desktops. You won't be able to import these calendars on your current device. Please try to
+                import this calendar on your desktop.
+            </div>
+            <div class="modal-footer">
+              <a id="mobileModalContinueLink" href="#" class="link-secondary me-2">Continue anyway</a>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 </html>

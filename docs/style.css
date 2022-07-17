@@ -18,3 +18,7 @@
 .form-control[readonly] {
   background-color: inherit;
 }
+
+.modal {
+    z-index: 9999;
+}
