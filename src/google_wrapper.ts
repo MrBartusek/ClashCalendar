@@ -106,7 +106,7 @@ export default class GoogleWrapper {
 
 		// Finalize
 		if(missingCalendars.length > 0 || invalidCalenders.length > 0) {
-			// Wait for the dust after structure updates to settle
+			Logger.info('Waiting for dust to settle (30s)...');
 			await Utils.delay(30 * 1000);
 		}
 		this.calendarList = await this.listCalendars();
