@@ -6,7 +6,7 @@
 
 ## Website
 
-Clash Calendar Frontend is hosted here: [dokurno.dev/ClashCalendar/](https://dokurno.dev/ClashCalendar/). It's build on [Bootstrap](https://getbootstrap.com) [jQuery](https://jquery.com) and [FullCalendar](https://fullcalendar.io).
+Clash Calendar Frontend is hosted here: [dokurno.dev/ClashCalendar/](https://dokurno.dev/ClashCalendar/). It's build on [Bootstrap](https://getbootstrap.com), [jQuery](https://jquery.com) and [FullCalendar](https://fullcalendar.io).
 
 [![frontend](https://i.imgur.com/o7TfqZw.png)](https://dokurno.dev/ClashCalendar/)
 
