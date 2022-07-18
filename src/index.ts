@@ -25,7 +25,6 @@ class ClashCalendar {
 		Logger.info('Starting ClashCalendar updater...');
 		this.riot = await new RiotWrapper().initialize();
 		this.google = await new GoogleWrapper(REGIONS).initialize();
-		process.send!('ready');
 		await this.google.updateCalendarsStructure();
 		await this.updateEvents();
 
