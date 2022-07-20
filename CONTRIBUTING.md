@@ -26,7 +26,7 @@ repository on your account named `<your username>/ClashCalendar`
 1. Enable the `Google Calendar API`. This is free API that doesn't require billing account.
 1. If you want to make contributions to the frontend or updater, follow applicable guide(s).
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Navigate to the `docs` directory.
 1. Run this directory under any HTTP server. You can use [VS Code Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), [XAMPP](https://www.apachefriends.org) or any other server. **This website won't work by just opening the** `index.html` **in browser!**
@@ -38,7 +38,7 @@ repository on your account named `<your username>/ClashCalendar`
     - Optionally you can edit `const DEFAULT_API_KEY` key in `main.js`
 1. You should now be able to see calendar events from the calendars hosted by Clash Calendar.
 
-# Backend setup
+### Updater setup
 
 1. Install newest LTS release of [Node.js](https://nodejs.org/en/), it has NPM package manager bundled with it.
 1. Navigate to [Riot Developer Portal](https://developer.riotgames.com).
