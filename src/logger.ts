@@ -20,7 +20,7 @@ export default class Logger {
 	}
 
 	public static separator(): void {
-		const width = Math.round(process.stdout.columns * 0.5);
+		const width = Math.max(Math.round(process.stdout.columns * 0.5), 25);
 		this.log('INFO', chalk.gray('-'.repeat(width)));
 	}
 
