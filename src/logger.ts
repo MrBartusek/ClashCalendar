@@ -25,10 +25,11 @@ export default class Logger {
 	}
 
 	private static log(severity: 'CRITICAL' | 'ERROR' | 'WARN' | 'INFO', message: string): void {
+		const time = new Date().toISOString().substr(11, 8);
 		const color = this.getColor(severity);
 		// Properly display multiline errors
 		for(const part of message.split(/\r?\n/)) {
-			console.log(color.bold(`[${severity}] `) + color(part));
+			console.log(chalk.blue(`[${time}] `) + color.bold(`[${severity}] `) + color(part));
 		}
 	}
 
