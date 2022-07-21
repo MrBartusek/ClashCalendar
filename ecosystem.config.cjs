@@ -6,6 +6,7 @@ module.exports = {
 		max_memory_restart: '200M',
 		wait_ready: false,
 		max_restarts: 10,
-		restart_delay: 60000
+		restart_delay: 60000,
+		args: [ '--color' ]
 	}]
 };
