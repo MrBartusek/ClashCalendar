@@ -69,16 +69,20 @@ class ClashCalendar {
 		Logger.info('CLASH CALENDAR REGIONS UPDATE SUMMARY:');
 		for(const [region, result] of Object.entries(results!)) {
 			let color = chalk.gray;
+			let icon = '●';
 			if(result == RegionUpdateResult.CALENDAR_MISSING) {
 				color = chalk.yellow;
+				icon = '❓';
 			}
 			else if(result == RegionUpdateResult.UPDATED) {
 				color = chalk.green;
+				icon = '✔️';
 			}
 			else if(result == RegionUpdateResult.FAILED) {
 				color = chalk.red;
+				icon = '❌';
 			}
-			Logger.info(`${color(`● ${chalk.bold(region.toLocaleUpperCase().padEnd(4))}`)} - ${RegionUpdateResult[result]}`);
+			Logger.info(`${color(`${icon} ${chalk.bold(region.toLocaleUpperCase().padEnd(4))}`)} - ${RegionUpdateResult[result]}`);
 		}
 		Logger.separator();
 	}
