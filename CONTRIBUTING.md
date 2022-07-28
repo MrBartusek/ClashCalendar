@@ -38,7 +38,7 @@ repository on your account named `<your username>/ClashCalendar`
    ```sh
    git clone https://github.com/<your username>/ClashCalendar.git
    ```
-1. [Navigate to Google Cloud Console](https://console.cloud.google.come). Create a new project under any name.
+1. [Navigate to Google Cloud Console](https://console.cloud.google.com). Create a new project under any name.
 1. Enable the `Google Calendar API`. This is free API that doesn't require billing account.
 1. If you want to make contributions to the frontend or updater, follow applicable guide(s).
 
