@@ -136,6 +136,9 @@ $('#tierSelect').change(function (e) {
 	updateCalendarAndImport();
 });
 function updateCalendarAndImport() {
+	// Hide all popovers that might be opened
+	$('.fc-daygrid-event').popover('hide');
+
 	const id = structure[currentRegion][currentTier];
 	calendar.setOption('events', {
 		googleCalendarId: id
