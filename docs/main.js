@@ -18,6 +18,8 @@ else {
 async function main() {
 	if (document.readyState != 'complete') return;
 	const apiKey = Cookies.get('GOOGLE_API_KEY') || DEFAULT_API_KEY;
+
+	// Load calendar
 	const calendarEl = document.getElementById('calendar');
 	const use12hour = Intl.DateTimeFormat([],  { hour: 'numeric' }).resolvedOptions().hourCycle == 'h12';
 	calendar = new FullCalendar.Calendar(calendarEl, {
@@ -86,6 +88,7 @@ async function main() {
 				end: new Date().setMonth(new Date().getMonth() + 3)
 			};
 		},
+		// Handle opacity change on loading
 		eventSourceSuccess: function () {
 			$('#calendarUpdateError').removeClass('d-flex');
 			$('#calendarUpdateError').addClass('d-none');
@@ -98,6 +101,7 @@ async function main() {
 	calendar.render();
 	structure = await fetch('structure.json').then(response => response.json());
 	updateCalendarAndImport();
+
 	// Load bootstrap tooltips
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 	[...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
@@ -122,32 +126,15 @@ async function main() {
 	});
 }
 
+// Handle region and tier selection buttons
 $('#regionSelect').change(function (e) {
 	currentRegion = $(this).find(':selected').val();
 	updateCalendarAndImport();
 });
-
 $('#tierSelect').change(function (e) {
 	currentTier = $(this).find(':selected').val();
 	updateCalendarAndImport();
 });
-
-$('body').on('click', function (e) {
-	//did not click a popover toggle or popover
-	if ($(e.target).data('toggle') !== 'popover'
-        && $(e.target).parents('.popover.in').length === 0) {
-		$('.fc-daygrid-event').popover('hide');
-	}
-});
-
-$('#calendarImportButton').on('click', function(e) {
-	const buttonLoaded = e.currentTarget.href.length > 10;
-	if(isMobile() && buttonLoaded) {
-		e.preventDefault();
-		$('#mobileModal').modal('show');
-	}
-});
-
 function updateCalendarAndImport() {
 	const id = structure[currentRegion][currentTier];
 	calendar.setOption('events', {
@@ -160,6 +147,23 @@ function updateCalendarAndImport() {
 	$('#calendarImportButton').attr('href', calendarAddUrl);
 	$('#mobileModalContinueLink').attr('href', calendarAddUrl);
 }
+
+// Hide tooltips on clicking outside
+$('body').on('click', function (e) {
+	if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('.popover.in').length === 0) {
+		$('.fc-daygrid-event').popover('hide');
+	}
+});
+
+// Handle 'Import to Google Calendar' button
+$('#calendarImportButton').on('click', function(e) {
+	const buttonLoaded = e.currentTarget.href.length > 10;
+	if(isMobile() && buttonLoaded) {
+		e.preventDefault();
+		$('#mobileModal').modal('show');
+	}
+});
 
 function isMobile() {
 	let check = false;
