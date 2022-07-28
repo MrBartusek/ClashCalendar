@@ -83,7 +83,7 @@ export default class GoogleWrapper {
 				description: 'This automatic calendar is managed by 📅 Clash Calendar https://dokurno.dev/ClashCalendar/'
 			}})
 				.then(async (c) => {
-					await Utils.delay(5000);
+					await Utils.delay(2000);
 					return c;
 				})
 				.then(c => c.data)
@@ -104,13 +104,22 @@ export default class GoogleWrapper {
 			if(!successful) break;
 		}
 
-		// Finalize
-		if(missingCalendars.length > 0 || invalidCalenders.length > 0) {
-			Logger.info('Waiting for dust to settle (30s)...');
-			await Utils.delay(30 * 1000);
-		}
+		// Update internal calendars list
 		this.calendarList = await this.listCalendars();
 		missingCalendars = structure.filter(s => !this.calendarList.map(c => c.summary).includes(s));
+
+		// Check ACL rules
+		Logger.info('Checking ACL share rules...');
+		for(const calendar of this.calendarList) {
+			const ruleResponse = await this.client.acl.list({ calendarId: calendar.id!, showDeleted: false });
+			const rules = ruleResponse.data.items!;
+			const shared = rules.find(r => r.scope?.type == 'default' && r.role == 'reader');
+			if(!shared) {
+				Logger.warn(`Sharing a calendar with missing ACL rule ${chalk.gray(calendar.id)}`);
+				await this.shareCalendar(calendar);
+			}
+		}
+
 		if(this.calendarList.length == 0) {
 			Logger.critical('Unable to create any calendars. There is no structure to work with.');
 		}
