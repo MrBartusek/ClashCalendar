@@ -5,6 +5,7 @@ import { ApiError, Region, Tournament } from 'shieldbow';
 import RiotWrapper, { ALL_TIERS, ClashTier } from './riot_wrapper.js';
 import * as schedule from 'node-schedule';
 import Utils from './utils.js';
+import 'dotenv/config';
 
 const REGIONS: Region[] = ['eune', 'euw', 'na', 'br', 'lan', 'las', 'oce', 'kr', 'ru', 'tr', 'jp'];
 enum RegionUpdateResult {
