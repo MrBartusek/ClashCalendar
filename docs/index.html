@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- External CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css"
+        integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
     <!-- External JS -->
-    <script deffer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script deffer src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script async src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck=" crossorigin="anonymous"></script>
-    <script async src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
-    <script async src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>
+    <script deffer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script deffer src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"
+        integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck=" crossorigin="anonymous"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"
+        integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"
+        integrity="sha256-XCdgoNaBjzkUaEJiauEq+85q/xi/2D4NcB3ZHwAapoM=" crossorigin="anonymous"></script>
     <script defer src="main.js"></script>
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
     <title>Clash Calendar - Integrate League Clashes into Google Calendar</title>
     <link rel="icon" type="image/x-icon" href="icon.ico?v=13">
-    <meta name="description" content="Integrate League of Legends Clashes into your Google Calendar. Easily import automatically updating calendar for any of 11 League of Legends regions and be informed about all upcoming clashes!">
+    <meta name="description"
+        content="Integrate League of Legends Clashes into your Google Calendar. Easily import automatically updating calendar for any of 11 League of Legends regions and be informed about all upcoming clashes!">
     <meta property="og:url" content="https://dokurno.dev/ClashCalendar/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Clash Calendar - Integrate League Clashes into Google Calendar">
-    <meta property="og:description" content="Integrate League of Legends Clashes into your Google Calendar. Easily import automatically updating calendar for any of 11 League of Legends regions and be informed about all upcoming clashes!">
+    <meta property="og:description"
+        content="Integrate League of Legends Clashes into your Google Calendar. Easily import automatically updating calendar for any of 11 League of Legends regions and be informed about all upcoming clashes!">
     <meta property="og:image" content="https://dokurno.dev/ClashCalendar/promo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="dokurno.dev">
     <meta property="twitter:url" content="https://dokurno.dev/ClashCalendar/">
     <meta name="twitter:title" content="Clash Calendar - Integrate League Clashes into Google Calendar">
-    <meta name="twitter:description" content="Integrate League of Legends Clashes into your Google Calendar. Easily import automatically updating calendar for any of 11 League of Legends regions and be informed about all upcoming clashes!">
+    <meta name="twitter:description"
+        content="Integrate League of Legends Clashes into your Google Calendar. Easily import automatically updating calendar for any of 11 League of Legends regions and be informed about all upcoming clashes!">
     <meta name="twitter:image" content="https://dokurno.dev/ClashCalendar/promo.png">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CWWSR4S1PR"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-CWWSR4S1PR');
     </script>
 </head>
+
 <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
         <!-- Navigation-->
@@ -64,8 +77,10 @@
                                 your <span class="text-primary">Google&nbsp;Calendar</span>
                             </h1>
                             <p class="lead fw-normal text-white-50 mb-4">
-                                Easily import automatically updating calendar for any of&nbsp;11&nbsp;League&nbsp;of&nbsp;Legends
-                                regions and be informed about all upcoming clashes! Select a&nbsp;tier that you are typically playing
+                                Easily import automatically updating calendar for any
+                                of&nbsp;11&nbsp;League&nbsp;of&nbsp;Legends
+                                regions and be informed about all upcoming clashes! Select a&nbsp;tier that you are
+                                typically playing
                                 and&nbsp;get the most accurate tournament times.
                             </p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
@@ -88,7 +103,7 @@
                         <div class="text-center">
                             <h2 class="fw-bolder">Setup the calendar</h2>
                             <p class="lead fw-normal text-muted mb-5">
-                               Customize the experience that you have with Clash Calendar
+                                Customize the experience that you have with Clash Calendar
                             </p>
                         </div>
                     </div>
@@ -110,7 +125,7 @@
                                         <option value="br">Brazil (BR)</option>
                                         <option value="lan">Latin America North (LAN)</option>
                                         <option value="las">Latin America South (LAS)</option>
-                                        <option value="oce" >Oceania (OCE)</option>
+                                        <option value="oce">Oceania (OCE)</option>
                                         <option value="kr">Republic of Korea (KR)</option>
                                         <option value="ru">Russia (RU)</option>
                                         <option value="tr">Turkey (TR)</option>
@@ -126,26 +141,23 @@
                                         <option value="3">Tier III</option>
                                         <option value="4" selected>Tier IV</option>
                                     </select>
-                                    <div class="form-text">Select <i>universal</i> if you are playing in multiple tiers.</div>
+                                    <div class="form-text">Select <i>universal</i> if you are playing in multiple tiers.
+                                    </div>
                                 </div>
                             </form>
                         </div>
                         <div class="row-lg-6">
                             <h4>Import calendar</h4>
                             <p class="fw-normal text-muted mb-3">
-                                If you are happy with this configuration you can now import this calendar to your Google Calendar.
+                                If you are happy with this configuration you can now import this calendar to your Google
+                                Calendar.
                             </p>
                             <div class="mb-3">
-                                <a
-                                    type="button"
-                                    class="btn btn-dark"
-                                    id="calendarImportButton"
-                                    target="_blank"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="right"
-                                    title="Add this calendar to your Google Account"
-                                >
-                                    <img src="google_calendar.svg" alt="Google Calendar" height="24" width="24" class='me-1'>
+                                <a type="button" class="btn btn-dark" id="calendarImportButton" target="_blank"
+                                    data-bs-toggle="tooltip" data-bs-placement="right"
+                                    title="Add this calendar to your Google Account">
+                                    <img src="google_calendar.svg" alt="Google Calendar" height="24" width="24"
+                                        class='me-1'>
                                     <span>Add to Google Calendar</span>
                                 </a>
                             </div>
@@ -153,7 +165,8 @@
                                 <label class="form-label" for="calendarIdInput">Calendar ID</label>
                                 <div class="input-group">
                                     <input id='calendarIdInput' type="text" class="form-control" readonly>
-                                    <button class="btn btn-outline-secondary" type="button" data-clipboard-target="#calendarIdInput">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        data-clipboard-target="#calendarIdInput">
                                         <i class="bi bi-clipboard-fill"></i>
                                         <span class="visually-hidden">Copy to clipboard</span>
                                     </button>
@@ -163,12 +176,14 @@
                                 <label class="form-label" for="calendarICalInput">Public address in iCal format</label>
                                 <div class="input-group">
                                     <input id='calendarICalInput' type="text" class="form-control" readonly>
-                                    <button class="btn btn-outline-secondary" type="button" data-clipboard-target="#calendarICalInput">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        data-clipboard-target="#calendarICalInput">
                                         <i class="bi bi-clipboard-fill"></i>
                                         <span class="visually-hidden">Copy to clipboard</span>
                                     </button>
                                 </div>
-                                <div class="form-text">Use this address to access this calendar from other applications.</div>
+                                <div class="form-text">Use this address to access this calendar from other applications.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -176,23 +191,20 @@
                         <div class="row-lg-6">
                             <h4>
                                 Calendar preview
-                                <div
-                                    class="spinner-border text-primary spinner-border-sm"
-                                    role="status"
-                                    style="font-size: var(--bs-body-font-size);"
-                                    id="calendar-spinner"
-                                >
+                                <div class="spinner-border text-primary spinner-border-sm" role="status"
+                                    style="font-size: var(--bs-body-font-size);" id="calendar-spinner">
                                 </div>
                             </h4>
                             <p class="fw-normal text-muted mb-3">
                                 This is a preview of the calendar that you are about to add to your account.
                             </p>
-                            <div class="alert alert-danger align-items-center d-none" role="alert" id="calendarUpdateError">
+                            <div class="alert alert-danger align-items-center d-none" role="alert"
+                                id="calendarUpdateError">
                                 <i class="bi bi-exclamation-triangle-fill me-2"></i>
                                 <div>
-                                  Failed to display this calendar. Please try again later.
+                                    Failed to display this calendar. Please try again later.
                                 </div>
-                              </div>
+                            </div>
                             <div id='calendar'></div>
                         </div>
                     </div>
@@ -204,49 +216,62 @@
     <footer class="bg-dark py-4 mt-auto">
         <div class="container px-5">
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Clash Calendar 2022</div></div>
+                <div class="col-auto">
+                    <div class="small m-0 text-white">
+                        Copyright &copy; Clash Calendar
+                        <span id="year">2023</span>
+                    </div>
+                </div>
                 <div class="col-auto">
                     <a class="link-light small" href="https://github.com/MrBartusek/ClashCalendar">Github</a>
                     <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="https://github.com/MrBartusek/ClashCalendar/issues">Report&nbsp;issue</a>
+                    <a class="link-light small"
+                        href="https://github.com/MrBartusek/ClashCalendar/issues">Report&nbsp;issue</a>
                     <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360000951548-Clash-FAQ">What&nbsp;is&nbsp;Clash?</a>
+                    <a class="link-light small"
+                        href="https://support-leagueoflegends.riotgames.com/hc/en-us/articles/360000951548-Clash-FAQ">What&nbsp;is&nbsp;Clash?</a>
                 </div>
             </div>
             <div class="row align-items-center justify-content-between flex-column flex-sm-row mt-3">
-                <div class="col-auto">
+                <div class="col-auto w-75">
                     <div class="text-secondary mb-2">
-                        Clash Calendar isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially
-                        involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or
-                        registered trademarks of Riot Games, Inc.
+                        Clash Calendar isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot
+                        Games or anyone officially
+                        involved in producing or managing Riot Games properties. Riot Games, and all associated
+                        properties are trademarks or
+                        registered trademarks of Riot Games, Inc. Google Calendar™ is a trademark of Google LLC.
                     </div>
                     <div class="text-secondary">
-                        Google Calendar™ is a trademark of Google LLC.
-                    </span>
+                        Made with <i class="bi bi-heart-fill"></i> and <i class="bi bi-cup-hot-fill"></i> by
+                        <a class='link-secondary'
+                            href="https://dokurno.dev/?utm_source=clash-calendar&utm_medium=footer&utm_campaign=clash-calendar_footer">
+                            MrBartusek
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
     </footer>
     <!-- Mobile Modal -->
     <div class="modal fade" id="mobileModal" tabindex="-1" aria-labelledby="mobileModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="mobileModalLabel">Mobile device detected</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mobileModalLabel">Mobile device detected</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    We detected that you are using a mobile device for accessing Clash Calendar. We just want to
+                    let you know that Google restricts importing or creating new calendars on devices other than
+                    desktops. You won't be able to import this calendars on your current device. Please try again
+                    on your computer.
+                </div>
+                <div class="modal-footer">
+                    <a id="mobileModalContinueLink" href="#" class="link-secondary me-2">Continue anyway</a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+                </div>
             </div>
-            <div class="modal-body">
-                We detected that you are using a mobile device for accessing Clash Calendar. We just want to
-                let you know that Google restricts importing or creating new calendars on devices other than
-                desktops. You won't be able to import this calendars on your current device. Please try again
-                on your computer.
-            </div>
-            <div class="modal-footer">
-              <a id="mobileModalContinueLink" href="#" class="link-secondary me-2">Continue anyway</a>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 </body>
+
 </html>

@@ -124,6 +124,9 @@ async function main() {
 			}, 2000);
 		});
 	});
+
+	console.log(new Date().getFullYear());
+	$('#year').html(new Date().getFullYear());
 }
 
 // Handle region and tier selection buttons
