@@ -2,11 +2,13 @@ import * as calendar from '@googleapis/calendar';
 import Logger from './logger.js';
 import chalk from 'chalk';
 import * as fs from 'fs';
+import * as path from 'path';
 import { Region } from 'shieldbow';
 import { ALL_TIERS, ClashTier } from './riot_wrapper.js';
 import Utils from './utils.js';
 
 const SERVICE_ACCOUNT_PATH = 'keys/service-account.json';
+const STRUCTURE_PATH = 'data/structure.json';
 
 export default class GoogleWrapper {
 	public client!: calendar.calendar_v3.Calendar;
@@ -218,7 +220,15 @@ export default class GoogleWrapper {
 				result[region][tier] = calendar.id;
 			}
 		}
-		fs.writeFileSync('structure.json', JSON.stringify(result, null, 2));
-		Logger.info(`Saved structure to ${chalk.green('structure.json')}`);
+		try {
+			fs.mkdirSync(path.dirname(STRUCTURE_PATH), { recursive: true });
+			fs.writeFileSync(STRUCTURE_PATH, JSON.stringify(result, null, 2));
+			Logger.info(`Saved structure to ${chalk.green(STRUCTURE_PATH)}`);
+		}
+		catch(error) {
+			// The file is only used by the website, calendar updates don't depend on it
+			const reason = error instanceof Error ? error.message : String(error);
+			Logger.warn(`Failed to save structure to ${chalk.bold(STRUCTURE_PATH)}: ${reason}`);
+		}
 	}
 }
