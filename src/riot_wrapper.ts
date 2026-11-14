@@ -27,19 +27,21 @@ export default class RiotWrapper {
 		const client = new Shieldbow.Client(process.env.RIOT_API_KEY!);
 		await client.initialize({
 			region: 'eune',
-			fetch: {
-				champions: false,
-				items: false,
-				runes: false,
-				summonerSpells: false
+			fetch: false,
+			storage: false,
+			ratelimiter: {
+				retry: {
+					retries: 3,
+					retryDelay: 5000
+				}
 			}
 		});
 		// Check if key is valid
 		try {
 			await client.status;
 		}
-		catch(error: any) {
-			if(error.response.status == 403) {
+		catch(error) {
+			if(error instanceof Shieldbow.ApiError && error.response?.status == 403) {
 				Logger.critical('Provided RIOT_API_KEY is invalid or expired');
 			}
 			else {

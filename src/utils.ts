@@ -43,14 +43,14 @@ export default class Utils {
 
 	public static formatAPIError(error: ApiError): string {
 		if(!(error instanceof ApiError)) return error;
-		let response = error.response.data;
+		let response = error.response?.data;
 		if(typeof response == 'object') {
 			response = JSON.stringify(response);
 		}
 		return [
-			`${chalk.bold('Request:')} ${error.request}`,
-			`${chalk.bold('URL:')} ${error.response.config.url}`,
-			`${chalk.bold('Response:')} HTTP ${error.response.status}: ${error.response.statusText}`,
+			`${chalk.bold('Error:')} ${error.message}`,
+			`${chalk.bold('URL:')} ${error.url}`,
+			`${chalk.bold('Response:')} HTTP ${error.response?.status}: ${error.response?.statusText}`,
 			response
 		].join('\r\n');
 	}
