@@ -24,10 +24,20 @@ class ClashCalendar {
 
 	async start() {
 		Logger.info('Starting ClashCalendar updater...');
-		this.riot = await new RiotWrapper().initialize();
-		this.google = await new GoogleWrapper(REGIONS).initialize();
-		await this.google.updateCalendarsStructure();
-		await this.updateEvents();
+
+		for(let delay = 30; ; delay = Math.min(delay * 2, 600)) {
+			try {
+				this.riot = await new RiotWrapper().initialize();
+				this.google = await new GoogleWrapper(REGIONS).initialize();
+				await this.google.updateCalendarsStructure();
+				await this.updateEvents();
+				break;
+			}
+			catch(error) {
+				Logger.error(`Startup failed, retrying in ${delay} seconds: ${error}`);
+				await Utils.delay(delay * 1000);
+			}
+		}
 
 		const eventsJob = schedule.scheduleJob(`${JITTER} */3 * * *`, async () => {
 			await this.updateEvents();
