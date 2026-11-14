@@ -1,15 +1,25 @@
-FROM node:18
+FROM node:24-alpine AS build
 
 WORKDIR /clash-calendar
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY src/ src/
 COPY tsconfig.json ./
 COPY .eslintrc.cjs ./
 
-RUN npm run build
+RUN npm run build && npm prune --omit=dev
 
-CMD [ "npm", "start" ]
+FROM node:24-alpine
+
+WORKDIR /clash-calendar
+
+COPY --from=build /clash-calendar/package.json ./
+COPY --from=build /clash-calendar/node_modules node_modules/
+COPY --from=build /clash-calendar/dist dist/
+
+USER node
+
+CMD [ "node", "dist/index.js" ]
