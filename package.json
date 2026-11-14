@@ -14,13 +14,14 @@
   "author": "MrBartusek",
   "license": "MIT",
   "dependencies": {
-    "@googleapis/calendar": "^2.0.0",
+    "@googleapis/calendar": "^20.2.0",
     "chalk": "^5.0.1",
     "dotenv": "^16.3.1",
     "node-schedule": "^2.1.0",
     "shieldbow": "^1.4.0"
   },
   "devDependencies": {
+    "@types/node": "22.9.4",
     "@types/node-schedule": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "eslint": "^8.18.0",
